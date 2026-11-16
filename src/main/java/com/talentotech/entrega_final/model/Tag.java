@@ -26,6 +26,8 @@ public class Tag {
     @JoinTable(name = "products_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
+    protected Tag() {}
+
     public Tag(Long id, String name, List<Product> products) {
         this.id = id;
         this.name = name;

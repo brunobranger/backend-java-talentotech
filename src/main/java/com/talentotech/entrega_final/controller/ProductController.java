@@ -1,6 +1,8 @@
 package com.talentotech.entrega_final.controller;
 
 import com.talentotech.entrega_final.service.ProductService;
+import com.talentotech.entrega_final.dto.CreateProductRequest;
+import com.talentotech.entrega_final.dto.ProductResponse;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import com.talentotech.entrega_final.model.Product;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import jakarta.validation.Valid;
 
 @RestController 
 @RequestMapping("/api/products")
@@ -28,25 +32,39 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        Product createdProduct = productService.createProduct(product);
+    public ResponseEntity<ProductResponse> createProduct(@Valid @RequestBody CreateProductRequest request) {
+        ProductResponse createdProduct = ProductResponse.from(productService.createProduct(request));
         return new ResponseEntity<>(createdProduct, HttpStatus.OK);
     }
 
     @GetMapping 
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public List<ProductResponse> getProducts(
+            @RequestParam(required = false) Long minPrice,
+            @RequestParam(required = false) Long maxPrice,
+            @RequestParam(required = false) String sort) {
+        return productService.getProducts(minPrice, maxPrice, sort)
+                .stream()
+                .map(ProductResponse::from)
+                .toList();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductByName(@PathVariable String name) {
-        Product product = productService.getProductByName(name);
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable Long id) {
+        ProductResponse product = ProductResponse.from(productService.getProductById(id));
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
 
+    @GetMapping("/search")
+    public List<ProductResponse> searchProducts(@RequestParam String name) {
+        return productService.searchProducts(name)
+                .stream()
+                .map(ProductResponse::from)
+                .toList();
+    }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Long price, int stock) {
-        Product updatedProduct = productService.updateProduct(id, price, stock);
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable Long id, @RequestParam Long price, @RequestParam int stock) {
+        ProductResponse updatedProduct = ProductResponse.from(productService.updateProduct(id, price, stock));
         return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
     } 
 

@@ -26,6 +26,8 @@ public class Supplier {
     @JoinTable(name = "products_suppliers", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Product> products;
 
+    protected Supplier() {}
+
     public Supplier(Long id, String name) {
         this.id = id;
         this.name = name;
