@@ -24,8 +24,8 @@ public class Product {
     @Positive(message = "Price must be positive")
     private Long price;
 
-    @ManyToOne 
-    @JoinColumn(name = "product_id")
+    @ManyToOne
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @ManyToMany 
@@ -38,6 +38,10 @@ public class Product {
     @PositiveOrZero
     private int stock;
 
+    @ManyToMany
+    @JoinTable(name = "products_tags", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tags;
+
     protected Product() {}
 
     public Product(String name, String description, Long price, Category category, List<Supplier> suppliers, Image image, int stock) {
@@ -48,6 +52,7 @@ public class Product {
         this.suppliers = suppliers;
         this.image = image;
         this.stock = stock;
+        this.tags = tags;
     }
 
     public Long getId() {
@@ -89,4 +94,8 @@ public class Product {
     public void setStock(int stock) {
         this.stock = stock;
     }
+
+    public List<Tag> getTags() { return this.tags; }
+    
+    public void setTags(List<Tag> tags) { this.tags = tags; }
 }

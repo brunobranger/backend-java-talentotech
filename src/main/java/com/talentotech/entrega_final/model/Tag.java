@@ -22,8 +22,7 @@ public class Tag {
     @NotBlank 
     private String name;
 
-    @ManyToMany 
-    @JoinTable(name = "products_tags", joinColumns = @JoinColumn(name = "tag_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(mappedBy = "tags")
     private List<Product> products;
 
     protected Tag() {}

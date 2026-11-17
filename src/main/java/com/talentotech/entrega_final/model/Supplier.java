@@ -22,8 +22,7 @@ public class Supplier {
     @NotBlank 
     String name;
 
-    @ManyToMany
-    @JoinTable(name = "products_suppliers", joinColumns = @JoinColumn(name = "supplier_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @ManyToMany(mappedBy = "suppliers")
     private List<Product> products;
 
     protected Supplier() {}
