@@ -8,15 +8,18 @@ public record ProductResponse(
         String description,
         Long price,
         int stock,
-        CategoryResponse category) {
+        CategoryResponse category,
+        String imageUrl) {
 
     public static ProductResponse from(Product product) {
+        String imageUrl = product.getImage() != null ? product.getImage().getUrl() : null;
         return new ProductResponse(
                 product.getId(),
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),
                 product.getStock(),
-                CategoryResponse.from(product.getCategory()));
+                CategoryResponse.from(product.getCategory()),
+                imageUrl);
     }
 }
