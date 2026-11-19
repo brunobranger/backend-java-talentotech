@@ -1,4 +1,4 @@
-# Entrega Final - API de Productos
+# Backend Java - API de Productos
 
 API REST para gestionar productos, construida con Spring Boot, JPA/Hibernate y MySQL.
 
@@ -33,16 +33,16 @@ JAVA_HOME=/usr/lib/jvm/java-26-openjdk ./mvnw spring-boot:run
 
 La API queda disponible en `http://localhost:8080/api/products`.
 
-La base de datos `entrega_final` se crea automáticamente al iniciar el contenedor, y Hibernate crea las tablas al arrancar la aplicación (`ddl-auto=update`).
+La base de datos `backend_java` se crea automáticamente al iniciar el contenedor, y Hibernate crea las tablas al arrancar la aplicación (`ddl-auto=update`).
 
 ## Configuración
 
 `src/main/resources/application.properties`:
 
 ```properties
-spring.application.name=entrega_final
+spring.application.name=backend_java
 
-spring.datasource.url=jdbc:mysql://localhost:3306/entrega_final
+spring.datasource.url=jdbc:mysql://localhost:3306/backend_java
 spring.datasource.username=root
 spring.datasource.password=root
 spring.jpa.hibernate.ddl-auto=update
@@ -75,7 +75,7 @@ docker compose down -v
 ### Conectarse a MySQL
 
 ```bash
-docker exec -it mysql-entrega mysql -uroot -proot entrega_final
+docker exec -it mysql-backend mysql -uroot -proot backend_java
 ```
 
 También se puede usar una herramienta gráfica como DBeaver:
@@ -84,7 +84,7 @@ También se puede usar una herramienta gráfica como DBeaver:
 - Puerto: `3306`
 - Usuario: `root`
 - Password: `root`
-- Base de datos: `entrega_final`
+- Base de datos: `backend_java`
 
 
 ## Modelo de datos
@@ -337,7 +337,7 @@ JAVA_HOME=/usr/lib/jvm/java-26-openjdk ./mvnw clean package
 JAVA_HOME=/usr/lib/jvm/java-26-openjdk ./mvnw -DskipTests package
 
 # Ejecutar el jar generado
-JAVA_HOME=/usr/lib/jvm/java-26-openjdk java -jar target/entrega_final-0.0.1-SNAPSHOT.jar
+JAVA_HOME=/usr/lib/jvm/java-26-openjdk java -jar target/backend_java-0.0.1-SNAPSHOT.jar
 
 # Ejecutar en modo desarrollo
 JAVA_HOME=/usr/lib/jvm/java-26-openjdk ./mvnw spring-boot:run
@@ -362,7 +362,7 @@ JAVA_HOME=/usr/lib/jvm/java-26-openjdk ./mvnw test
 Cobertura actual: 13 tests.
 
 - `ProductServiceImplTest` (12 tests): filtros y ordenamiento, rango de precios inválido, producto inexistente, búsqueda, creación con y sin categoría, y categoría inexistente.
-- `EntregaFinalApplicationTests` (1 test): carga del contexto de Spring con H2.
+- `BackendJavaApplicationTests` (1 test): carga del contexto de Spring con H2.
 
 Para ejecutar una clase de tests puntual:
 

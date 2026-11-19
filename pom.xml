@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.talentotech</groupId>
-	<artifactId>entrega_final</artifactId>
+	<artifactId>backend_java</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name/>
 	<description/>
